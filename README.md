@@ -66,3 +66,12 @@ Exemplo:
 ```
 {"msg": "Ol\u00e1 pessoas, agora sem flush e com o consumer desligado!!!", "horario": "2020-11-22 15:21:28", "total": 6}
 ```
+
+## dicas GIT
+
+Não esquecer de rodar, para novos diretórios, os comandos:
+
+```
+git config --global user.email "msilva1610@gmail.com"
+git config --global user.name "msilva1610"
+```
