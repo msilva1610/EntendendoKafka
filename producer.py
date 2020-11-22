@@ -8,7 +8,7 @@ from datetime import datetime
 
 bootstrap_servers = ['localhost:9091', 'localhost:9092', 'localhost:9093']
 # topicName = 'my-topic-three'
-topicName = 'my-topic-msg05'
+topicName = 'my-topic-msg02-sem-flush'
 
 # producer = KafkaProducer(bootstrap_servers = bootstrap_servers)
 
@@ -24,15 +24,21 @@ total = 0
 while True:
     total += 1
     # print(random.randint(1,999))
-    print(total)
+    # print(total)
     # producer.send('topicName', str(random.randint(1,999)).encode())
     data_e_hora_completa = datetime.now()
     data_string = data_e_hora_completa.strftime('%Y-%m-%d %H:%M:%S')
-    msg = 'hello world com flush e group'
-    dados = {"msg": msg, "horario": data_string, "total": total}
+    msg = 'Olá pessoas, agora sem flush e com o consumer desligado!!!'
+    dados = {"msg": str(msg), "horario": data_string, "total": total}
     # producer.send(topicName, b'Hello World!')
     print(dados)
-    producer.send(topicName, value=dados)
-    if total == 1000:
-        producer.flush()
+    p = producer.send(topicName, value=dados)
+    # print(dir(p))
+    print(p.error_on_callbacks)
+    if p.error_on_callbacks == 'FALSE':
+        print('error')
         break
+    if total == 10:
+        break
+# O flush deve ser chamado somente ao finalizar a aplicação
+producer.flush()
